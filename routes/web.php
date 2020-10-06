@@ -22,6 +22,10 @@ Route::group(['prefix' => 'admin'], function() {
     //task11により追記
     Route::get('profile/create', 'Admin\ProfileController@add');
     Route::get('profile/edit', 'Admin\ProfileController@edit');
+    //Laravel13で追加
+    Route::get('news/create', 'Admin\NewsController@add')->middleware('auth');
+    Route::get('profile/create', 'Admin\ProfileController@add')->middleware('auth');
+    Route::get('profile/edit', 'Admin\ProfileController@edit')->middleware('auth');;
 });
 
 //「http://XXXXXX.jp/XXX というアクセスが来たときに、 AAAControllerのbbbというAction に渡すRoutingの設定」を書いてみてください。
@@ -29,3 +33,7 @@ Route::group(['prefix' => 'admin'], function() {
 Route::get('XXX', function () {
     return view('AAAController@bbb');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
