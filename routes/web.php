@@ -17,15 +17,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('news/create', 'Admin\NewsController@add');
-    //task11により追記
-    Route::get('profile/create', 'Admin\ProfileController@add');
-    Route::get('profile/edit', 'Admin\ProfileController@edit');
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
+
     //Laravel13で追加
     Route::get('news/create', 'Admin\NewsController@add')->middleware('auth');
+    //Laravel14で追加
+    Route::post('news/create', 'Admin\NewsController@create');
+    //task14で追加
+    Route::post('profile/create', 'Admin\ProfileController@create');
+    Route::post('profile/edit', 'Admin\ProfileController@update');
+    //Laravel13で追加
     Route::get('profile/create', 'Admin\ProfileController@add')->middleware('auth');
-    Route::get('profile/edit', 'Admin\ProfileController@edit')->middleware('auth');;
+    Route::get('profile/edit', 'Admin\ProfileController@edit')->middleware('auth');
 });
 
 //「http://XXXXXX.jp/XXX というアクセスが来たときに、 AAAControllerのbbbというAction に渡すRoutingの設定」を書いてみてください。
