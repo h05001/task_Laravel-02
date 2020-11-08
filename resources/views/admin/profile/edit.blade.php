@@ -29,13 +29,13 @@
                     <div class="form-group row">
                         <label class="col-md-2" for="hobby">趣味(hobby)</label>
                         <div class="col-md-10">
-                            <textarea class="form-control" name="hobby" rows="10">{{ $profile_form->hobby }}</textarea>
+                            <textarea class="form-control" name="hobby" rows="5">{{ $profile_form->hobby }}</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="introduction">自己紹介欄(introduction)</label>
                         <div class="col-md-10">
-                            <textarea class="form-control" name="introduction" rows="10">{{ $profile_form->introduction }}</textarea>
+                            <textarea class="form-control" name="introduction" rows="5">{{ $profile_form->introduction }}</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -46,6 +46,19 @@
                         </div>
                     </div>
                 </form>
+                {{-- 以下を追記　--}}
+                <div class="row mt-5">
+                    <div class="col-md-4 mx-auto">
+                        <h2>更新履歴</h2>
+                        <ul class="list-group">
+                            @if ($profile_form->ProfileHistories != NULL)
+                                @foreach ($profile_form->ProfileHistory as $profile_history)
+                                    <li class="list-group-item">{{ $profile_History->edited_at }}</li>
+                                @endforeach
+                            @endif
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

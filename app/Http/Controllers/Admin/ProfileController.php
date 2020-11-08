@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Profile;
+//task18で追記
+use App\ProfileHistory;
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -75,16 +78,21 @@ class ProfileController extends Controller
 
       // 該当するデータを上書きして保存する
       $profile->fill($profile_form)->save();
-      return redirect('admin/profile');
+      //task18で追記 更新履歴
+      $profile_history = new ProfileHistory;
+      $profile_history->profile_id = $profile->id;
+      $profile_history->edited_at = Carbon::now();
+      $profile_history->save();
+      return redirect('admin/profile/');
   }
 
   public function delete(Request $request)
   {
-      // 該当するNews Modelを取得
+      // 該当するProfile Modelを取得
       $profile = Profile::find($request->id);
       // 削除する
       $profile->delete();
-      return redirect('admin/profile/');
+      return redirect('admin/profile');
   }
- 
+
 }
