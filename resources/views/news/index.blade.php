@@ -1,5 +1,5 @@
 @extends('layouts.front')
-
+<p>reデプロイ</p>
 @section('content')
     <div class="container">
         <hr color="#c0c0c0">
